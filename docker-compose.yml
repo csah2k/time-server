@@ -1,0 +1,18 @@
+services:
+  ntp-server:
+    image: cturra/ntp:latest
+    container_name: ntp-server
+    restart: always
+    ports:
+      - "123:123/udp" # Map the NTP port to the host
+    dns:
+      - 192.168.2.15
+      - 192.168.2.1
+    environment:
+      TZ: America/Sao_Paulo
+      NTP_SERVERS: 0.br.pool.ntp.org,1.br.pool.ntp.org,2.br.pool.ntp.org,3.br.pool.ntp.org
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
